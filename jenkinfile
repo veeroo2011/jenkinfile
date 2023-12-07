@@ -1,0 +1,51 @@
+pipeline {
+    agent any
+    environment {
+        name = "Abhimanyu"
+      }
+    parameters {
+        string(name: 'person',defaultValue: "Ashok")
+    }
+
+    stages {
+        stage('pulling code') {
+            steps {
+                sh '''
+                echo 'code has been pulled from GitHub'
+                echo "value of Name is ${name}"
+                echo "parameter value is ${person}"
+                date
+                hostname
+                '''
+            }
+        }
+                stage('build image') {
+            steps {
+                sh '''
+                echo 'Docker image is build'
+                hostname -i
+                uptime
+                '''
+            }
+        }
+                stage('deploy-test') {
+            steps {
+                sh '''
+                echo 'Deployment on testing completed'
+                ip a
+                id
+                '''
+            }
+        }
+                stage('Deploy-Prod') {
+            steps {
+                sh '''
+                echo 'Deployment on production completed'
+                pwd
+                whoami
+                echo "build no is ${BUILD_NUMBER} and ${name}"
+                '''
+            }
+        }
+    }
+}
